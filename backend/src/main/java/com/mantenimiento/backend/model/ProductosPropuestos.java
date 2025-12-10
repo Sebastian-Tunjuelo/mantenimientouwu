@@ -1,6 +1,5 @@
 package com.mantenimiento.backend.model;
 
-import java.time.OffsetDateTime;
 import java.util.UUID;
 
 import jakarta.persistence.Column;
@@ -57,10 +56,4 @@ public class ProductosPropuestos {
     @Column(name = "motivo_rechazo")
     private String motivoRechazo;
 
-    @Column(name = "Create_At", columnDefinition = "TIMESTAMPTZ")
-    private OffsetDateTime createAt;
-
-    protected void onCreate() {
-        this.createAt = OffsetDateTime.now();
-    }
 }

@@ -1,6 +1,5 @@
 package com.mantenimiento.backend.model;
 
-import java.time.OffsetDateTime;
 import java.util.UUID;
 
 import jakarta.persistence.Column;
@@ -41,13 +40,6 @@ public class Usuario {
 
     @Column(name = "telefono")
     private String telefono;
-
-    @Column(name = "Create_At", columnDefinition = "TIMESTAMPTZ")
-    private OffsetDateTime createAt;
-
-    protected void onCreate() {
-        this.createAt = OffsetDateTime.now();
-    }
 
 }
 // >>>>>>> 2660c50 (Creación de Las Entidades)

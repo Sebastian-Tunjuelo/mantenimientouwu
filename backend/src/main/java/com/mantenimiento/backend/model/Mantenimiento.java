@@ -39,11 +39,4 @@ public class Mantenimiento {
     @Column(name = "observaciones")
     private String observaciones;
 
-    @Column(name = "Create_At", columnDefinition = "TIMESTAMPTZ")
-    private OffsetDateTime createAt;
-
-    protected void onCreate() {
-        this.createAt = OffsetDateTime.now();
-    }
-
 }

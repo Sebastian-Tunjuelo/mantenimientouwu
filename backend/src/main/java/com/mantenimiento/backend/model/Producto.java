@@ -1,6 +1,5 @@
 package com.mantenimiento.backend.model;
 
-import java.time.OffsetDateTime;
 import java.util.UUID;
 
 import jakarta.persistence.Column;
@@ -53,10 +52,4 @@ public class Producto {
     @Column(name = "imagen_url")
     private String imagenUrl;
 
-    @Column(name = "Create_At", columnDefinition = "TIMESTAMPTZ")
-    private java.time.OffsetDateTime createAt;
-
-    protected void onCreate() {
-        this.createAt = OffsetDateTime.now();
-    }
 }

@@ -1,7 +1,7 @@
 package com.mantenimiento.backend.model;
 
 import java.time.LocalDate;
-import java.time.OffsetDateTime;
+
 import java.util.UUID;
 
 import jakarta.persistence.Column;
@@ -46,12 +46,5 @@ public class ProductoUsuario {
     @PastOrPresent(message = "La fecha de ultimo mantenimiento no puede ser futura")
     @Column(name = "fecha_ultimo_mantenimiento")
     private LocalDate fechaUltimoMantenimiento;
-
-    @Column(name = "Create_At", columnDefinition = "TIMESTAMPTZ")
-    private java.time.OffsetDateTime createAt;
-
-    protected void onCreate() {
-        this.createAt = OffsetDateTime.now();
-    }
 
 }

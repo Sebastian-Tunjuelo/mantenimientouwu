@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,8 +23,8 @@ import com.mantenimiento.backend.model.Usuario;
 @RequestMapping("/api/usuarios")
 @CrossOrigin(origins = "http://localhost:5173")
 public class UsuarioController {
-    
-    @Autowired 
+
+    @Autowired
     UsuarioRepository usuarioRepository;
 
     @GetMapping
@@ -36,11 +37,18 @@ public class UsuarioController {
         return usuarioRepository.save(usuario);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Usuario> obtenerUsuarioPorId(@PathVariable UUID id) {
+        Optional<Usuario> usuario = usuarioRepository.findById(id);
+        return usuario.map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
     // CAMBIADO: Usar @PutMapping en lugar de @PostMapping para editar
     @PutMapping("/{id}")
     public Usuario editarUsuario(@PathVariable UUID id, @RequestBody Usuario usuarioDetalles) {
         Optional<Usuario> optionalUsuario = usuarioRepository.findById(id);
-        
+
         if (optionalUsuario.isPresent()) {
             Usuario usuario = optionalUsuario.get();
             usuario.setNombre(usuarioDetalles.getNombre());
