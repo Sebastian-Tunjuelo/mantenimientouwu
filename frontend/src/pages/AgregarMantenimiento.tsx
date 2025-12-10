@@ -9,7 +9,7 @@ function AgregarMantenimiento() {
   const [Observaciones, setObservaciones] = React.useState("");
   const [realizadoPor, setRealizadoPor] = React.useState("");
   const agregar = async () => {
-    await fetch("http://localhost:8080/api/agregarmantenimiento", {
+    await fetch("http://localhost:8081/api/agregarmantenimiento", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

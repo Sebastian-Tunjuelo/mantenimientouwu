@@ -1,59 +1,97 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router";
 import useAuth from "../hooks/useAuth";
-function agregarProducto() {
+import { productoUsuarioAPI } from "../api/apiService";
+import Navbar from "../components/Navbar";
+
+function AgregarProducto() {
   const navigate = useNavigate();
   const session = useAuth();
-  const locations = useLocation();
-  const id = locations.state.id;
-  const [name, setName] = React.useState("");
-  const [date, setDate] = React.useState("");
-  const [DateMantenimiento, setDateMantenimiento] = React.useState("");
+  const location = useLocation();
+  const productoId = location.state?.id;
+
+  const [numeroSerie, setNumeroSerie] = React.useState("");
+  const [fechaCompra, setFechaCompra] = React.useState("");
+  const [fechaUltimoMantenimiento, setFechaUltimoMantenimiento] = React.useState("");
+  const [loading, setLoading] = React.useState(false);
+
   const agregar = async () => {
-    let user_id = session?.user.id;
-    await fetch("http://localhost:8080/api/agregar", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ id, user_id, name, date, DateMantenimiento }),
-    });
-    navigate("/myproducts");
+    try {
+      if (!numeroSerie || !fechaCompra) {
+        alert("Por favor completa todos los campos obligatorios");
+        return;
+      }
+
+      setLoading(true);
+      
+      const productoUsuario = {
+        producto: { id: productoId },
+        usuario: { id: session?.user.id },
+        numeroSerie,
+        fechaCompra,
+        fechaUltimoMantenimiento: fechaUltimoMantenimiento || null
+      };
+
+      await productoUsuarioAPI.create(productoUsuario);
+      alert("Producto agregado exitosamente");
+      navigate("/myproducts");
+    } catch (error) {
+      console.error("Error al agregar producto:", error);
+      alert("Error al agregar el producto");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div>
-      <form>
-        <label htmlFor="name">Nombre</label>
+      <Navbar />
+      <h1>Agregar Producto a Mi Inventario</h1>
+      <form className="form">
+        <label htmlFor="numeroSerie">Número de Serie *</label>
         <input
           type="text"
-          name="name"
-          id="name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          id="numeroSerie"
+          value={numeroSerie}
+          onChange={(e) => setNumeroSerie(e.target.value)}
+          required
         />
-        <label htmlFor="date">Fecha de compra</label>
+        
+        <label htmlFor="fechaCompra">Fecha de Compra *</label>
         <input
           type="date"
-          name="date_shop"
-          id="date_shop"
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
+          id="fechaCompra"
+          value={fechaCompra}
+          onChange={(e) => setFechaCompra(e.target.value)}
+          required
         />
-        <label htmlFor="date">Ultimo mantenimiento</label>
+        
+        <label htmlFor="fechaUltimoMantenimiento">Último Mantenimiento</label>
         <input
           type="date"
-          name="date_last"
-          id="date_last"
-          value={DateMantenimiento}
-          onChange={(e) => setDateMantenimiento(e.target.value)}
+          id="fechaUltimoMantenimiento"
+          value={fechaUltimoMantenimiento}
+          onChange={(e) => setFechaUltimoMantenimiento(e.target.value)}
         />
-        <button type="button" onClick={() => agregar()}>
-          agregar
+        
+        <button 
+          type="button" 
+          onClick={agregar}
+          disabled={loading}
+        >
+          {loading ? "Guardando..." : "Agregar a Mis Productos"}
+        </button>
+        
+        <button 
+          type="button" 
+          onClick={() => navigate(-1)}
+          disabled={loading}
+        >
+          Cancelar
         </button>
       </form>
     </div>
   );
 }
 
-export default agregarProducto;
+export default AgregarProducto;
