@@ -1,5 +1,4 @@
 comandos git
-uwu
 crear repo vacío
 git remote add origin URL-del-repo
 git branch -M main
