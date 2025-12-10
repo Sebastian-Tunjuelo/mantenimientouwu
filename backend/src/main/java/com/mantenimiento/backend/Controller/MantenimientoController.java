@@ -2,6 +2,7 @@ package com.mantenimiento.backend.Controller;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -37,7 +38,7 @@ public class MantenimientoController {
     }
 
     @PostMapping("/{id}")
-    public Mantenimiento editarMantenimiento(@PathVariable Long id, 
+    public Mantenimiento editarMantenimiento(@PathVariable UUID id, 
         @RequestBody Mantenimiento mantenimientoDetalles) {
 
          Optional<Mantenimiento> optionalMantenimiento = mantenimientoRepository.findById(id);
@@ -54,7 +55,7 @@ public class MantenimientoController {
     }
     
     @DeleteMapping("/{id}")
-    public void eliminarMantenimiento(@PathVariable Long id) {
+    public void eliminarMantenimiento(@PathVariable UUID id) {
           mantenimientoRepository.deleteById(id);
     }
 

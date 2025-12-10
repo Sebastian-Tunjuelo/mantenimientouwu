@@ -2,6 +2,7 @@ package com.mantenimiento.backend.Controller;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -37,7 +38,7 @@ public class ProductoController {
     }
 
     @PostMapping("/{id}")
-    public Producto editarProducto(@PathVariable Long id, @RequestBody Producto productoDetalles) {
+    public Producto editarProducto(@PathVariable UUID id, @RequestBody Producto productoDetalles) {
 
          Optional<Producto> optionalProducto = productoRepository.findById(id);
     
@@ -46,7 +47,6 @@ public class ProductoController {
                 producto.setTipoDispositivo(productoDetalles.getTipoDispositivo());
                 producto.setMarca(productoDetalles.getMarca());
                 producto.setModelo(productoDetalles.getModelo());
-                producto.setFichaTecnica(productoDetalles.getFichaTecnica());
                 producto.setDetalle(productoDetalles.getDetalle());
                 producto.setGastoEnergia(productoDetalles.getGastoEnergia());
                 producto.setVidaUtil(productoDetalles.getVidaUtil());
@@ -60,7 +60,7 @@ public class ProductoController {
 
 
     @DeleteMapping("/{id}")
-    Optional<Producto> EliminarProducto(@PathVariable Long id) {
+    Optional<Producto> EliminarProducto(@PathVariable UUID id) {
         Optional<Producto> producto = productoRepository.findById(id);
 
         if (producto.isPresent()) {

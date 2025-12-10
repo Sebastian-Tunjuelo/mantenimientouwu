@@ -1,10 +1,7 @@
 package com.mantenimiento.backend.model;
 
 import java.time.OffsetDateTime;
-import java.util.Map;
-
-import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
-import com.vladmihalcea.hibernate.type.json.JsonType;
+import java.util.UUID;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,6 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,10 +22,11 @@ import lombok.NoArgsConstructor;
 @Table(name = "productos_propuestos")
 public class ProductosPropuestos {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id_producto_propuesto")
-    private Long id;
+    private UUID id;
 
+    @ManyToOne
     @JoinColumn(name = "id_usuario")
     private Usuario usuario;
 
@@ -45,10 +44,6 @@ public class ProductosPropuestos {
 
     @Column(name = "detalle")
     private String detalle;
-
-    @Type (JsonType.class)
-    @Column(name = "ficha_tecnica", columnDefinition = "jsonb")
-    private Map<String, Object> fichaTecnica;
 
     @Column(name = "gasto_energia")
     private Double gastoEnergia;

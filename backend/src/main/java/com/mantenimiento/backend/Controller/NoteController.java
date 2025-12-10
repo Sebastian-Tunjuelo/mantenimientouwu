@@ -2,6 +2,7 @@ package com.mantenimiento.backend.Controller;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -36,7 +37,7 @@ public class NoteController {
     }
 
     @PostMapping("/{id}")
-        public Nota updateNota(@PathVariable Long id, @RequestBody Nota notaDetalles) {
+        public Nota updateNota(@PathVariable UUID id, @RequestBody Nota notaDetalles) {
            Optional<Nota> optionalNota = noteRepository.findById(id);
 
               if (optionalNota.isPresent()) {
@@ -50,7 +51,7 @@ public class NoteController {
         }   
 
         @DeleteMapping("/{id}")
-        Optional<Nota> deleteNota(@PathVariable Long id) {
+        Optional<Nota> deleteNota(@PathVariable UUID id) {
             Optional<Nota> nota = noteRepository.findById(id);
            if (nota.isPresent()) {
                 noteRepository.deleteById(id);

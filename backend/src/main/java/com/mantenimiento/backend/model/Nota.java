@@ -1,5 +1,7 @@
 package com.mantenimiento.backend.model;
 
+import java.util.UUID;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -17,13 +19,13 @@ import lombok.NoArgsConstructor;
 @Table(name = "notas")
 public class Nota {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
-    @Column(name = "titulo", nullable = false)
+    @Column(name = "titulo")
     private String titulo;
 
-    @Column(name = "descripcion", nullable = false)
+    @Column(name = "descripcion")
     private String descripcion;
 }
 

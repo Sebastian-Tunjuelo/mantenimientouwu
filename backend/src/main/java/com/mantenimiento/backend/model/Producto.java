@@ -1,9 +1,7 @@
 package com.mantenimiento.backend.model;
 
-import java.util.Map;
 
-import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
-import com.vladmihalcea.hibernate.type.json.JsonType;
+import java.util.UUID;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -24,9 +22,9 @@ import lombok.NoArgsConstructor;
 @Table(name = "productos")
 public class Producto {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id_producto")
-    private Long id;
+    private UUID id;
 
     @ManyToOne
     @JoinColumn(name = "id_usuario")
@@ -42,9 +40,6 @@ public class Producto {
     private String modelo;
 
     //Objeto tipo JSONB para ficha tecnica
-    @Type(JsonType.class)
-    @Column(name = "ficha_tecnica", columnDefinition = "jsonb")
-    private Map<String, Object> fichaTecnica;
 
     @Column(name = "detalle")
     private String detalle;
