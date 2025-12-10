@@ -1,6 +1,7 @@
 package com.mantenimiento.backend.model;
 
 import java.time.LocalDate;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 import jakarta.persistence.Column;
@@ -26,7 +27,7 @@ public class ProductoUsuario {
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id_producto_usuario")
     private UUID id;
-    
+
     @ManyToOne
     @JoinColumn(name = "id_usuario")
     private Usuario usuario;
@@ -37,7 +38,7 @@ public class ProductoUsuario {
 
     @Column(name = "numero_serie")
     private String numeroSerie;
-    
+
     @PastOrPresent(message = "La fecha de compra no puede ser futura")
     @Column(name = "fecha_compra")
     private LocalDate fechaCompra;
@@ -48,5 +49,9 @@ public class ProductoUsuario {
 
     @Column(name = "Create_At", columnDefinition = "TIMESTAMPTZ")
     private java.time.OffsetDateTime createAt;
-    
+
+    protected void onCreate() {
+        this.createAt = OffsetDateTime.now();
+    }
+
 }

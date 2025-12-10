@@ -1,6 +1,6 @@
 package com.mantenimiento.backend.model;
 
-
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 import jakarta.persistence.Column;
@@ -39,7 +39,7 @@ public class Producto {
     @Column(name = "modelo")
     private String modelo;
 
-    //Objeto tipo JSONB para ficha tecnica
+    // Objeto tipo JSONB para ficha tecnica
 
     @Column(name = "detalle")
     private String detalle;
@@ -54,5 +54,9 @@ public class Producto {
     private String imagenUrl;
 
     @Column(name = "Create_At", columnDefinition = "TIMESTAMPTZ")
-    private java.time.OffsetDateTime createAt;  
+    private java.time.OffsetDateTime createAt;
+
+    protected void onCreate() {
+        this.createAt = OffsetDateTime.now();
+    }
 }

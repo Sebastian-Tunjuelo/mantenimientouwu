@@ -28,7 +28,7 @@ public class Mantenimiento {
 
     @ManyToOne
     @JoinColumn(name = "id_producto_usuario")
-    private ProductoUsuario productoUsuario;    
+    private ProductoUsuario productoUsuario;
 
     @Column(name = "tipo_mantenimiento")
     private String tipoMantenimiento;
@@ -41,5 +41,9 @@ public class Mantenimiento {
 
     @Column(name = "Create_At", columnDefinition = "TIMESTAMPTZ")
     private OffsetDateTime createAt;
-    
+
+    protected void onCreate() {
+        this.createAt = OffsetDateTime.now();
+    }
+
 }

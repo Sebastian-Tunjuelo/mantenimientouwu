@@ -34,7 +34,7 @@ public class ProductosPropuestos {
     private String tipoDispositivo;
 
     @Column(name = "marca")
-    private String marca; 
+    private String marca;
 
     @Column(name = "modelo")
     private String modelo;
@@ -59,4 +59,8 @@ public class ProductosPropuestos {
 
     @Column(name = "Create_At", columnDefinition = "TIMESTAMPTZ")
     private OffsetDateTime createAt;
+
+    protected void onCreate() {
+        this.createAt = OffsetDateTime.now();
+    }
 }

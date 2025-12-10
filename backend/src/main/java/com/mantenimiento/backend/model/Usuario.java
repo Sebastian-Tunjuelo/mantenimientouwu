@@ -1,6 +1,5 @@
 package com.mantenimiento.backend.model;
 
-
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
@@ -21,12 +20,12 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "usuarios")
 public class Usuario {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id_usuario")
     private UUID id;
-    
+
     @Column(name = "nombre")
     private String nombre;
 
@@ -45,6 +44,10 @@ public class Usuario {
 
     @Column(name = "Create_At", columnDefinition = "TIMESTAMPTZ")
     private OffsetDateTime createAt;
-    
+
+    protected void onCreate() {
+        this.createAt = OffsetDateTime.now();
+    }
+
 }
-//>>>>>>> 2660c50 (Creación de Las Entidades)
+// >>>>>>> 2660c50 (Creación de Las Entidades)
